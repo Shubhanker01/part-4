@@ -14,11 +14,40 @@ const maxLikes = (blogs) => {
             maxLikes = blogs[i].likes
         }
     }
-    // let blog = blogs.findIndex((blog)=> )
-    return maxLikes
+    let ind = blogs.findIndex((blog) => blog.likes == maxLikes)
+    console.log(blogs[ind])
+    return blogs[ind]
 }
+
+const mostBlogs = (blogs) => {
+    let blogSet = {}
+    let mostNoOfBlogs = 0
+    for (let i = 0; i < blogs.length; i++) {
+        if (blogSet.hasOwnProperty(blogs[i].author)) {
+            blogSet[blogs[i].author].noOfBlogs++;
+        }
+        else {
+            blogSet[blogs[i].author] = {
+                noOfBlogs: 1
+            }
+        }
+    }
+    let author = ""
+    for (let key in blogSet) {
+        if (blogSet[key].noOfBlogs > mostNoOfBlogs) {
+            mostNoOfBlogs = blogSet[key].noOfBlogs
+            author = key
+        }
+    }
+    return {
+        author: author,
+        blogs: mostNoOfBlogs
+    }
+}
+
 module.exports = {
     dummy,
     totalLikes,
-    maxLikes
+    maxLikes,
+    mostBlogs
 }
