@@ -12,4 +12,6 @@ app.listen(PORT, () => {
     console.log(`App is listening on port: ${PORT}`)
 })
 
+
 connectToDb()
+module.exports = app
