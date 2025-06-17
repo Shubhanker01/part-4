@@ -6,6 +6,17 @@ const blogSchema = new Schema({
     author: String,
     url: String,
     likes: Number,
+}, {
+    toJSON: {
+        virtuals: true,
+        transform: function (doc, ret) {
+            delete ret._id;
+        }
+    }
+})
+
+blogSchema.virtual('id').get(function () {
+    return this._id.toHexString()
 })
 
 module.exports = mongoose.model('blogs', blogSchema)
