@@ -32,6 +32,17 @@ test('notes are returned as json', async () => {
         .expect(200)
         .expect('Content-Type', /application\/json/)
 })
+test('notes are added', async () => {
+    const newBlog = {
+        title: "my title3",
+        author: "author3",
+        url: "http://author1blogs",
+        likes: 500,
+    }
+    await api.post('/blogs/api/create').send(newBlog).expect(201).expect('Content-Type', /application\/json/)
+
+
+})
 
 after(async () => {
     console.log("test is terminated")

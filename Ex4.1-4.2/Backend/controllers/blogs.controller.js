@@ -12,7 +12,7 @@ const createNewBlog = async (req, res) => {
             url: url,
             likes: 0
         })
-        return res.send("Your blog is successfully created")
+        return res.status(201).send("Your blog is successfully created")
     } catch (error) {
         console.log(error)
     }
