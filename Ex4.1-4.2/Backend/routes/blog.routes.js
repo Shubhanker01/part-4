@@ -5,6 +5,6 @@ const { createNewBlog, getAllBlogs, updateBlog, deleteSingleBlog } = require('..
 router.route('/create').post(createNewBlog)
 router.route('/getall').get(getAllBlogs)
 router.route('/update/:id').post(updateBlog)
-router.route('/deleteblog/:id').delete(deleteSingleBlog)
+router.route('/delete/:id').delete(deleteSingleBlog)
 
 module.exports = router

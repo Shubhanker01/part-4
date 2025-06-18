@@ -57,8 +57,20 @@ test('notes are added', async () => {
 
 })
 
-test('delete single blog',async()=>{
-    // await api.delete('')
+test('delete single blog', async () => {
+    let blogs = await blogSchema.find({})
+    console.log(blogs)
+    // delete the 3rd added blog
+    await api.delete(`/blogs/api/delete/${blogs[1]._id}`).expect(204)
+})
+
+test('update a single blog', async () => {
+    let updatedBlog = {
+        title: "Updated title"
+    }
+    let blogs = await blogSchema.find({})
+    await api.post(`/blogs/api/update/${blogs[1]._id}`).send(updatedBlog).expect(200)
+
 })
 after(async () => {
     console.log("test is terminated")

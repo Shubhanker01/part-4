@@ -32,6 +32,7 @@ const deleteSingleBlog = async (req, res) => {
     try {
         let id = req.params.id
         await blogSchema.deleteOne({ _id: id })
+        return res.status(204).json({ message: "Successfully deleted!!!" })
     } catch (error) {
         console.log(error)
     }
