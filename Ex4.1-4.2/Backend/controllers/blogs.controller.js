@@ -2,6 +2,8 @@ const blogSchema = require('../models/blog.models')
 
 const createNewBlog = async (req, res) => {
     try {
+        if (req.user === undefined) return;
+        let { userId } = req.params
         let { title, author, url } = req.body
         if (!title || !author || !url) {
             return res.status(404).send("Please enter full information")
@@ -10,6 +12,7 @@ const createNewBlog = async (req, res) => {
             title: title,
             author: author,
             url: url,
+            user: userId,
             likes: 0
         })
         return res.status(201).json({ message: "Successfully added" })
@@ -20,7 +23,7 @@ const createNewBlog = async (req, res) => {
 
 const getAllBlogs = async (req, res) => {
     try {
-        let blogs = await blogSchema.find({})
+        let blogs = await blogSchema.find({}).populate('user')
         return res.json(blogs)
     } catch (error) {
         console.log(error)
@@ -30,6 +33,7 @@ const getAllBlogs = async (req, res) => {
 // delete a blog
 const deleteSingleBlog = async (req, res) => {
     try {
+        if (req.user === undefined) return;
         let id = req.params.id
         await blogSchema.deleteOne({ _id: id })
         return res.status(204).json({ message: "Successfully deleted!!!" })
@@ -41,6 +45,7 @@ const deleteSingleBlog = async (req, res) => {
 // update a blog
 const updateBlog = async (req, res) => {
     try {
+        if (req.user === undefined) return;
         let { title, author, url } = req.body
         let id = req.params.id
         let data = await blogSchema.findOne({ _id: id })

@@ -5,7 +5,9 @@ const connectToDb = require('./db/db')
 const PORT = 3000
 app.use(express.json())
 const blogRouter = require('./routes/blog.routes')
+const userRouter = require('./routes/user.routes')
 
+app.use('/user/api',userRouter)
 app.use('/blogs/api', blogRouter)
 
 app.listen(PORT, () => {
