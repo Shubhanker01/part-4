@@ -9,12 +9,12 @@ const createUser = async (req, res) => {
             return res.status(400).json({ message: "Please enter full details" })
         }
         const hashedPassword = await bcrypt.hash(password, 10)
-        await Users.create({
+        let user = await Users.create({
             username: username,
             password: hashedPassword
         })
-        
-        jwt.sign({ name: username }, process.env.SECRET, { expiresIn: '1h' }, function (err, token) {
+
+        jwt.sign({ name: username, id: user._id }, process.env.SECRET, { expiresIn: '1h' }, function (err, token) {
             if (err) {
                 return res.status(500).json({ message: "Some error occured" })
             }
@@ -43,14 +43,14 @@ const loginUser = async (req, res) => {
         if (!compare) {
             return res.status(402).json({ message: "Invalid password" })
         }
-        
-        jwt.sign({ name: username }, process.env.SECRET, { expiresIn: '1h' }, function (err, token) {
+
+        jwt.sign({ name: username, id: user._id }, process.env.SECRET, { expiresIn: '1h' }, function (err, token) {
             if (err) {
                 return res.status(500).json({ message: "Some error occured" })
             }
             return res.status(200).json({ message: "User successfully entered", token: token })
         })
-        
+
 
     } catch (error) {
         console.log(error)

@@ -1,12 +1,16 @@
 import React, { useState } from 'react'
 import { userLogin } from '../services/userAuth'
 import DisplayBlogs from './DisplayBlogs'
+import Logout from './Logout'
+import decodetoken from '../utils/decodeToken'
+import CreateBlog from './CreateBlog'
 
 function Login() {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [success, setSuccess] = useState(false)
-
+    const [name, setName] = useState('')
+    const [id, setId] = useState('')
     const handleSubmit = async (e) => {
         try {
             e.preventDefault()
@@ -15,6 +19,8 @@ function Login() {
                 window.localStorage.setItem('token', JSON.stringify(data.token))
                 alert("Successfully logged in!!!!")
                 setSuccess(true)
+                setName(decodetoken().name)
+                setId(decodetoken().id)
             }
             else {
                 // alert("Some error occured")
@@ -41,6 +47,9 @@ function Login() {
             </form>
             {
                 success == true ? <>
+                    <p>{name} is currently logged in</p>
+                    <Logout setSuccess={setSuccess} />
+                    <CreateBlog id={id} />
                     <DisplayBlogs />
                 </> : <></>
             }
