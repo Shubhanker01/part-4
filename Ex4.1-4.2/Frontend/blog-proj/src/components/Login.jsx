@@ -4,6 +4,7 @@ import DisplayBlogs from './DisplayBlogs'
 import Logout from './Logout'
 import decodetoken from '../utils/decodeToken'
 import CreateBlog from './CreateBlog'
+import Toggleable from './Toggleable'
 
 function Login() {
     const [username, setUsername] = useState("")
@@ -11,6 +12,10 @@ function Login() {
     const [success, setSuccess] = useState(false)
     const [name, setName] = useState('')
     const [id, setId] = useState('')
+    const [visible, setVisible] = useState(false)
+    const toggleVisibility = () => {
+        setVisible(!visible)
+    }
     const handleSubmit = async (e) => {
         try {
             e.preventDefault()
@@ -49,7 +54,9 @@ function Login() {
                 success == true ? <>
                     <p>{name} is currently logged in</p>
                     <Logout setSuccess={setSuccess} />
-                    <CreateBlog id={id} />
+                    <Toggleable buttonLabel={"Toggle"} visible={visible} toggleVisibility={toggleVisibility}>
+                        <CreateBlog id={id} toggleVisibility={toggleVisibility} />
+                    </Toggleable>
                     <DisplayBlogs />
                 </> : <></>
             }
