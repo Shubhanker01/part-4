@@ -57,7 +57,7 @@ function Login() {
                     <Toggleable buttonLabel={"Toggle"} visible={visible} toggleVisibility={toggleVisibility}>
                         <CreateBlog id={id} toggleVisibility={toggleVisibility} />
                     </Toggleable>
-                    <DisplayBlogs />
+                    <DisplayBlogs/>
                 </> : <></>
             }
 

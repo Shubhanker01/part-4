@@ -28,3 +28,13 @@ export const createBlog = async (id, { title, author, url }) => {
         console.log(error)
     }
 }
+
+export const updateLikes = async (id) => {
+    try {
+        const res = await axios.put(`${import.meta.env.VITE_DEV}/blogs/api/like/${id}`)
+        const data = await res.data
+        return data
+    } catch (error) {
+        console.log(error)
+    }
+}

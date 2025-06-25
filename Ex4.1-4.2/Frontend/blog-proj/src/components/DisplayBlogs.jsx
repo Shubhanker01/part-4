@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { getAllBlogs } from '../services/blogs'
+import Toggleable from './Toggleable'
+import Blog from './Blog'
 
 function DisplayBlogs() {
     const [blogs, setBlogs] = useState([])
+
     useEffect(() => {
         async function getBlogs() {
             let data = await getAllBlogs()
@@ -18,16 +21,9 @@ function DisplayBlogs() {
             {
                 blogs.map((blog) => {
                     return (
-
                         <div key={blog.id}>
-
-                            <p>Title {blog.title}</p>
-
-                            <p>Author {blog.author}</p>
-
-                            <p>Likes {blog.likes}</p>
+                            <Blog title={blog.title} author={blog.author} likes={blog.likes} url={blog.url} id={blog.id}></Blog>
                         </div>
-
                     )
                 })
             }

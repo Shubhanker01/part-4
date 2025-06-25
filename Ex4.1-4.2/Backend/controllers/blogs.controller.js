@@ -63,5 +63,22 @@ const updateBlog = async (req, res) => {
     }
 }
 
+const updateLikes = async (req, res) => {
+    try {
+        let { blogId } = req.params
+        if (!blogId) {
+            return res.status(400).json({ message: "No id given for blog" })
+        }
+        let data = await blogSchema.findOne({ _id: blogId })
+        if (!data) {
+            return res.status(400).json({ message: "Invalid Id" })
+        }
+        data.likes = data.likes + 1
+        await data.save()
+        return res.status(200).json({ message: "You liked the post" })
+    } catch (error) {
+        console.log(error)
+    }
+}
 
-module.exports = { createNewBlog, getAllBlogs, deleteSingleBlog, updateBlog }
+module.exports = { createNewBlog, getAllBlogs, deleteSingleBlog, updateBlog, updateLikes }
