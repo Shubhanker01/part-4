@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import Toggleable from './Toggleable'
-import { updateLikes } from '../services/blogs'
+import { updateLikes, deleteBlog } from '../services/blogs'
 
-function Blog({ title, author, likes, url, id }) {
+function Blog({ title, author, likes, url, id, blogs, setBlogs }) {
     const [displayBlogVisible, setDisplayBlogVisible] = useState(false)
     const toggleBlogVisibility = () => {
         setDisplayBlogVisible(!displayBlogVisible)
@@ -11,6 +11,25 @@ function Blog({ title, author, likes, url, id }) {
         try {
             const data = await updateLikes(id)
             alert(data.message)
+            setBlogs(blogs.map(blog => {
+                if (blog.id == id) {
+                    blog.likes++;
+                }
+                return blog
+            })
+
+            )
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    const removeBlog = async (id) => {
+        try {
+            let userConfirm = window.confirm(`Remove blog ${title}`)
+            if (userConfirm) {
+                let data = await deleteBlog(id)
+                window.alert(data.message)
+            }
         } catch (error) {
             console.log(error)
         }
@@ -25,7 +44,7 @@ function Blog({ title, author, likes, url, id }) {
                     <p>Likes {likes}</p>
                     <button onClick={updateLike}>Like</button>
                 </Toggleable>
-
+                <button onClick={() => { removeBlog(id) }}>Remove</button>
             </div>
         </>
     )

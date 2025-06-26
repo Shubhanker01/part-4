@@ -38,3 +38,18 @@ export const updateLikes = async (id) => {
         console.log(error)
     }
 }
+
+export const deleteBlog = async (id) => {
+    try {
+        const res = await axios.delete(`${import.meta.env.VITE_DEV}/blogs/api/delete/${id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        const data = await res.data
+        console.log(data)
+        return data
+    } catch (error) {
+        console.log(error)
+    }
+}

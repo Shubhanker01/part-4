@@ -9,8 +9,12 @@ function DisplayBlogs() {
     useEffect(() => {
         async function getBlogs() {
             let data = await getAllBlogs()
-            console.log(data)
-            setBlogs(data)
+            // console.log(data)
+            // sorting by the number of likes
+            let arr = [...data]
+            arr.sort((blogA, blogB) => blogB.likes - blogA.likes)
+            // console.log(arr)
+            setBlogs(arr)
         }
         getBlogs()
 
@@ -22,7 +26,7 @@ function DisplayBlogs() {
                 blogs.map((blog) => {
                     return (
                         <div key={blog.id}>
-                            <Blog title={blog.title} author={blog.author} likes={blog.likes} url={blog.url} id={blog.id}></Blog>
+                            <Blog title={blog.title} author={blog.author} likes={blog.likes} url={blog.url} id={blog.id} setBlogs={setBlogs} blogs={blogs}></Blog>
                         </div>
                     )
                 })
