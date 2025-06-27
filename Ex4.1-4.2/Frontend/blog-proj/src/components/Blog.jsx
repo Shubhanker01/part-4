@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import Toggleable from './Toggleable'
 import { updateLikes, deleteBlog } from '../services/blogs'
+import decodetoken from '../utils/decodeToken'
 
-function Blog({ title, author, likes, url, id, blogs, setBlogs }) {
+function Blog({ title, author, likes, url, id, blogs, setBlogs, createrId }) {
     const [displayBlogVisible, setDisplayBlogVisible] = useState(false)
+    const user = decodetoken()
     const toggleBlogVisibility = () => {
         setDisplayBlogVisible(!displayBlogVisible)
     }
@@ -44,7 +46,12 @@ function Blog({ title, author, likes, url, id, blogs, setBlogs }) {
                     <p>Likes {likes}</p>
                     <button onClick={updateLike}>Like</button>
                 </Toggleable>
-                <button onClick={() => { removeBlog(id) }}>Remove</button>
+                {
+                    createrId == user.id ? <>
+                        <button onClick={() => { removeBlog(id) }}>Remove</button>
+                    </> : <></>
+                }
+
             </div>
         </>
     )

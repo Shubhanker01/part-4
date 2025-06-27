@@ -54,10 +54,10 @@ function Login() {
                 success == true ? <>
                     <p>{name} is currently logged in</p>
                     <Logout setSuccess={setSuccess} />
-                    <Toggleable buttonLabel={"Toggle"} visible={visible} toggleVisibility={toggleVisibility}>
+                    <Toggleable visible={visible} toggleVisibility={toggleVisibility}>
                         <CreateBlog id={id} toggleVisibility={toggleVisibility} />
                     </Toggleable>
-                    <DisplayBlogs/>
+                    <DisplayBlogs />
                 </> : <></>
             }
 

@@ -5,7 +5,6 @@ import Blog from './Blog'
 
 function DisplayBlogs() {
     const [blogs, setBlogs] = useState([])
-
     useEffect(() => {
         async function getBlogs() {
             let data = await getAllBlogs()
@@ -24,9 +23,10 @@ function DisplayBlogs() {
             <h1>Blogs</h1>
             {
                 blogs.map((blog) => {
+                    console.log(blog)
                     return (
                         <div key={blog.id}>
-                            <Blog title={blog.title} author={blog.author} likes={blog.likes} url={blog.url} id={blog.id} setBlogs={setBlogs} blogs={blogs}></Blog>
+                            <Blog title={blog.title} author={blog.author} likes={blog.likes} url={blog.url} id={blog.id} setBlogs={setBlogs} blogs={blogs} createrId={blog.user._id}></Blog>
                         </div>
                     )
                 })

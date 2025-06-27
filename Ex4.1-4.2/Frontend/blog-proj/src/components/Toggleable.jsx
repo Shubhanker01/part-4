@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
 function Toggleable({ buttonLabel, children, visible, toggleVisibility }) {
     const hideWhenVisible = { display: visible ? 'none' : '' }
@@ -15,6 +16,10 @@ function Toggleable({ buttonLabel, children, visible, toggleVisibility }) {
             </div>
         </>
     )
+}
+
+Toggleable.propTypes = {
+    buttonLabel: PropTypes.string.isRequired
 }
 
 export default Toggleable
