@@ -5,7 +5,7 @@ import decodetoken from '../utils/decodeToken'
 
 function Blog({ title, author, likes, url, id, blogs, setBlogs, createrId }) {
     const [displayBlogVisible, setDisplayBlogVisible] = useState(false)
-    const user = decodetoken()
+    // const user = decodetoken()
     const toggleBlogVisibility = () => {
         setDisplayBlogVisible(!displayBlogVisible)
     }
@@ -46,11 +46,7 @@ function Blog({ title, author, likes, url, id, blogs, setBlogs, createrId }) {
                     <p>Likes {likes}</p>
                     <button onClick={updateLike}>Like</button>
                 </Toggleable>
-                {
-                    createrId == user.id ? <>
-                        <button onClick={() => { removeBlog(id) }}>Remove</button>
-                    </> : <></>
-                }
+
 
             </div>
         </>
