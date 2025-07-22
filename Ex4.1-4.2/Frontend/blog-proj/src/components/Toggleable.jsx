@@ -10,7 +10,7 @@ function Toggleable({ buttonLabel, children, visible, toggleVisibility }) {
             <div style={hideWhenVisible}>
                 <button onClick={toggleVisibility}>{buttonLabel}</button>
             </div>
-            <div style={showWhenVisible}>
+            <div style={showWhenVisible} className='toggleableContent'>
                 {children}
                 <button onClick={toggleVisibility}>Cancel</button>
             </div>
