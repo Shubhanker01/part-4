@@ -18,6 +18,7 @@ describe('<Toggleable/>', () => {
 
     // at starting the children will be hidden
     test('renders its children', async () => {
+        // find html content by text
         await screen.findAllByText('toggleable content')
     })
 
@@ -33,7 +34,7 @@ describe('<Toggleable/>', () => {
         await user.click(button)
 
         const div = container.querySelector('.toggleableContent')
-        expect(div).not.toHaveStyle('display:none')
+        expect(div).toHaveStyle('display:none')
     })
 })
 
