@@ -9,13 +9,14 @@ function CreateBlog({ id, toggleVisibility }) {
     const handleSubmit = async (e) => {
         try {
             e.preventDefault()
-            let res = await createBlog(id, { title: title, author: author, url: url })
-            console.log(res)
-            alert(res.message)
+            // let res = await createBlog(id, { title: title, author: author, url: url })
+            // console.log(res)
+            // alert(res.message)
+            alert("Successfully added")
             setTitle('')
             setAuthor('')
             setUrl('')
-            toggleVisibility()
+            // toggleVisibility()
         } catch (error) {
             console.log(error)
         }
