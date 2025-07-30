@@ -1,11 +1,12 @@
-import { afterEach, test, expect, vi } from "vitest";
+import { afterEach, test, expect, vi, beforeEach, describe } from "vitest";
 import { cleanup } from "@testing-library/react";
 import { render, screen } from "@testing-library/react";
 import '@testing-library/jest-dom/vitest'
 import Blog from "../components/Blog";
 import userEvent from '@testing-library/user-event'
 
-test('renders content', () => {
+describe(('my-test-component'), () => {
+    let container
     const blogs = [
         {
             _id: "6855740887a37f6f03049428",
@@ -25,15 +26,36 @@ test('renders content', () => {
         }
     ]
 
-    const mockHandler = vi.fn()
-    render(<Blog title={blogs[0].title} blogs={blogs} author={blogs[0].author} createrId={blogs[0].user} url={blogs[0].url} likes={blogs[0].likes} />)
+    beforeEach(() => {
+        container = render(
+            <Blog title={blogs[0].title} blogs={blogs} author={blogs[0].author} createrId={blogs[0].user} url={blogs[0].url} likes={blogs[0].likes} />
+        ).container
+    })
 
-    const user = userEvent.setup()
-    screen.debug()
-    // const element = screen.getByText('Component testing is done with react-testing-library')
-    // expect(element).toBeDefined()
+    test('check for toggleable content', () => {
+        const toggleAbleDiv = container.querySelector('.toggleableContent')
+        expect(toggleAbleDiv).toHaveStyle('display:none')
+    })
+
+    test('simulate the button is clicked and the info is shown', async () => {
+        const user = userEvent.setup()
+        const toggleAbleDiv = container.querySelector('.toggleableContent')
+        const button = screen.getByText('view')
+        await user.click(button)
+        expect(toggleAbleDiv).toHaveStyle('display:block')
+    })
+
+    // test("check if the mock func is called one time", async () => {
+    //     const blog = vi.fn()
+    //     const user = userEvent.setup()
+    //     render(<Blog title={blogs[0].title} blogs={blogs} author={blogs[0].author} createrId={blogs[0].user} url={blogs[0].url} likes={blogs[0].likes}></Blog>)
+    //     const toggleAbleDiv = container.querySelector('.toggleableContent')
+    //     const button = screen.getAllByText('view')
+    //     await user.click(button[0])
+    //     expect(likes.mock.calls).toHaveLength(1)
+    // })
+
 })
-
 afterEach(() => {
     cleanup()
 })

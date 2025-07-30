@@ -5,9 +5,16 @@ import decodetoken from '../utils/decodeToken'
 
 function Blog({ title, author, likes, url, id, blogs, setBlogs, createrId }) {
     const [displayBlogVisible, setDisplayBlogVisible] = useState(false)
+    const [buttonLabel, setbuttonLabel] = useState('view')
     // const user = decodetoken()
     const toggleBlogVisibility = () => {
         setDisplayBlogVisible(!displayBlogVisible)
+        if (buttonLabel == 'hide') {
+            setbuttonLabel('view')
+        }
+        else {
+            setbuttonLabel('hide')
+        }
     }
     const updateLike = async () => {
         try {
@@ -40,13 +47,15 @@ function Blog({ title, author, likes, url, id, blogs, setBlogs, createrId }) {
         <>
             <div className='blog'>
                 <p>Title {title}</p>
-                <Toggleable toggleVisibility={toggleBlogVisibility} buttonLabel={"view"} visible={displayBlogVisible}>
-                    <p>Author {author}</p>
-                    <p>URL: {url}</p>
-                    <p>Likes {likes}</p>
-                    <button onClick={updateLike}>Like</button>
-                </Toggleable>
+                <Toggleable toggleVisibility={toggleBlogVisibility} buttonLabel={buttonLabel} visible={displayBlogVisible}>
+                    <div>
+                        <p>Author {author}</p>
+                        <p>URL: {url}</p>
+                        <p>Likes {likes}</p>
+                        <button onClick={updateLike}>Like</button>
+                    </div>
 
+                </Toggleable>
 
             </div>
         </>
